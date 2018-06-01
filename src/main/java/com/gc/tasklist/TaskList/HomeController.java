@@ -22,7 +22,7 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public ModelAndView index() {
-		return new ModelAdnView("index");
+		return new ModelAndView("index");
 	}
 
 	@RequestMapping("/preRegister")
@@ -43,7 +43,7 @@ public class HomeController {
 				 long id = userDao.findUser(email).getId();
 			List<Task> tasklist = taskDao.listTasks(id);
 
-			return new ModelAdnView("task", "tasklist", tasklist);
+			return new ModelAndView("task", "tasklist", tasklist);
 		} else {
 				System.out.println("not match");
 			return new ModelAndView("index");
@@ -56,12 +56,19 @@ public class HomeController {
 	}
 
 	@RequestMapping("/add")
-	public ModelAndView add(@RequestParam("description") String description, @RequestParam("duedate") String duedate,
+	public ModelAndView add(@RequestParam("userid")int userid,@RequestParam("description") String description, @RequestParam("duedate") String duedate,
 			@RequestParam("status") String status) {
 
-		Task task = new Task(description, duedate, status);
-		taskDao.update(task);
-		return new ModelAndView("index", "tasklist", taskDao.findlist());
+		Task task = new Task(userid, description, duedate, status);
+		taskDao.addTask(task);
+		return new ModelAndView("task", "tasklist",taskDao.listTasks(userid));
+	}
+	
+	@RequestMapping("/delete")
+	public ModelAndView delete(@RequestParam("name") String name, @RequestParam("userid")int userid) {
+
+		taskDao.deleteByName(name);
+		return new ModelAndView("task", "tasklist", taskDao.listTasks(userid));
 	}
 
 }
