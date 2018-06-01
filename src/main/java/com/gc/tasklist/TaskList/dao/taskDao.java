@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -24,6 +25,11 @@ public class taskDao {
 	
 	public List<Task> listTasks() {
 		TypedQuery<Task> namedQuery = em.createNamedQuery("find_all_tasks", Task.class);
+		return namedQuery.getResultList();
+	}
+	
+	public List<Task> listTasks(long id) {
+		Query namedQuery = em.createQuery("FROM tasklist WHERE id=" + id);
 		return namedQuery.getResultList();
 	}
 	
