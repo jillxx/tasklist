@@ -40,8 +40,8 @@ public class HomeController {
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
 		if (userDao.checkUser(email, password)) {
-				
-			List<Task> tasklist = taskDao.listTasks();
+				 long id = userDao.findUser(email).getId();
+			List<Task> tasklist = taskDao.listTasks(id);
 
 			return new ModelAdnView("task", "tasklist", tasklist);
 		} else {
