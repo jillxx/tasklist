@@ -1,5 +1,6 @@
 package com.gc.tasklist.TaskList;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,8 @@ public class HomeController {
 	}
 
 	@RequestMapping("/add")
-	public ModelAndView add(@RequestParam("userid")int userid,@RequestParam("description") String description, @RequestParam("duedate") String duedate,
-			@RequestParam("status") String status) {
+	public ModelAndView add(@RequestParam("userid")long userid,@RequestParam("description") String description, @RequestParam("duedate") Date duedate,
+			@RequestParam("status") boolean status) {
 
 		Task task = new Task(userid, description, duedate, status);
 		taskDao.addTask(task);
