@@ -3,12 +3,13 @@ package com.gc.tasklist.TaskList.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQuery(name = "find_all_tasks", query= "select i from Task i")
 public class Task {
-
+	@Id
 	private long userId;
 	private String description;
 	private Date date;

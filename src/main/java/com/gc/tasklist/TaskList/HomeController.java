@@ -40,8 +40,9 @@ public class HomeController {
 
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
+
 		if (userDao.checkUser(email, password)) {
-				 long id = userDao.findUser(email).getId();
+				int id = userDao.findUser(email).getId();
 			List<Task> tasklist = taskDao.listTasks(id);
 
 			return new ModelAndView("task", "tasklist", tasklist);
@@ -57,7 +58,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/add")
-	public ModelAndView add(@RequestParam("userid")long userid,@RequestParam("description") String description, @RequestParam("duedate") Date duedate,
+	public ModelAndView add(@RequestParam("userid")int userid,@RequestParam("description") String description, @RequestParam("duedate") Date duedate,
 			@RequestParam("status") boolean status) {
 
 		Task task = new Task(userid, description, duedate, status);

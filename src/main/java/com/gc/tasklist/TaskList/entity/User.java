@@ -1,5 +1,6 @@
 package com.gc.tasklist.TaskList.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,12 +8,13 @@ import javax.persistence.Id;
 public class User {
 
 	@Id
-	private long id;
+	@Column(name="userid")
+	private int id;
 	private String email;
 	private String password;
 	
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	public String getEmail() {
@@ -29,7 +31,7 @@ public class User {
 	}
 	
 	
-	public User(long id, String email, String password) {
+	public User(int id, String email, String password) {
 		super();
 		this.id = id;
 		this.email = email;
