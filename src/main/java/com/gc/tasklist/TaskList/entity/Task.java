@@ -9,14 +9,14 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name = "find_all_tasks", query= "select i from Task i")
 public class Task {
 
-	private long id;
+	private long userId;
 	private String description;
 	private Date date;
 	private boolean status;
 	
 	
-	public long getId() {
-		return id;
+	public long getUserId() {
+		return userId;
 	}
 	public String getDescription() {
 		return description;
@@ -38,9 +38,9 @@ public class Task {
 	}
 	
 	
-	public Task(long id, String description, Date date, boolean status) {
+	public Task(long userId, String description, Date date, boolean status) {
 		super();
-		this.id = id;
+		this.userId = userId;
 		this.description = description;
 		this.date = date;
 		this.status = status;
