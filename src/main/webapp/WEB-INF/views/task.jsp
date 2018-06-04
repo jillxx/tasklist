@@ -40,7 +40,7 @@
 </head>
 <body>
 
-	<div class="container">
+	<div class="container">				
 		<h1>Your Tasks</h1>
 		<table class="table" id="table1">
 			<thead>
@@ -52,22 +52,22 @@
 				</tr>
 			</thead>
 				<tbody>
+			
 				<c:forEach var="task" items="${tasklist}">
-
 					<tr>
 						<td>${task.description}</td>
 						<!-- 						<td> 2018-06-01	</td>  -->
 						<td><fmt:parseDate value="${task.duedate}" var="parsedDate"
 								pattern="yyyy-MM-dd" />${parsedDate}</td>
-						<td><input type="checkbox" name="${task.status}" /></td>
-						<td><a type="button" href="delete?idtask=${task.idtask}&userid=${task.userid}">Delete</a></td>
+						<td><input type="checkbox" name="${task.status}"></td>
+						<td><a type="button" href="delete?idtask=${task.idtask}&email=${task.email}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		
-		
 		</table>
-				<h3><a  href="addtask?userid=${tasklist[0].userid}">Add a task</a></h3>
+		<h3><a  href="addtask?email=${tasklist[0].email}">Add a task</a></h3>
+			
 
 	</div>
 </body>

@@ -44,9 +44,9 @@ public class HomeController {
 	public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
 
 		if (userDao.checkUser(email, password)) {
-				int id = userDao.findUser(email).getId();
+				//int id = userDao.findUser(email).getId();
 
-			List<Task> tasklist = taskDao.listTasks(id);
+			List<Task> tasklist = taskDao.listTasks(email);
 			System.out.println("test for finding tasklist");
 			System.out.println(tasklist);//good
 
@@ -58,24 +58,24 @@ public class HomeController {
 	}
 
 	@RequestMapping("/addtask")
-	public ModelAndView addfrom(@RequestParam("userid")int userid) {
-		return new ModelAndView("addtask","userid",userid);
+	public ModelAndView addfrom(@RequestParam("email")String email) {
+		return new ModelAndView("addtask","useremail",email);
 	}
 
 	@RequestMapping("/add")
 	public ModelAndView add(@RequestParam("description") String description, @RequestParam("duedate") Date duedate,
-			@RequestParam("status") boolean status, @RequestParam("userid")int userid) {
-		Task task = new Task(userid, description, duedate, status);
+			@RequestParam("status") boolean status, @RequestParam("email") String email) {
+		Task task = new Task(email, description, duedate, status);
 		System.out.println(task);
 		taskDao.addTask(task);
-		return new ModelAndView("task", "tasklist",taskDao.listTasks(userid));
+		return new ModelAndView("task", "tasklist",taskDao.listTasks(email));
 	}
 	
 	@RequestMapping("/delete")
-	public ModelAndView delete(@RequestParam("idtask") int idtask, @RequestParam("userid")int userid) {
+	public ModelAndView delete(@RequestParam("idtask") int idtask, @RequestParam("email")String email) {
 
 		taskDao.deleteById(idtask);
-		return new ModelAndView("task", "tasklist", taskDao.listTasks(userid));
+		return new ModelAndView("task", "tasklist", taskDao.listTasks(email));
 	}
 
 }

@@ -16,17 +16,17 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int idtask;
-	private int userid;
+	private String email;
 	private String description;
 	private Date duedate;
 	
 	private boolean status;
 
 
-	public Task( int userid, String description, Date duedate, boolean status) {
+	public Task( String email, String description, Date duedate, boolean status) {
 		super();
 		
-		this.userid = userid;
+		this.email = email;
 		this.description = description;
 		this.duedate = duedate;
 		this.status = status;
@@ -50,15 +50,19 @@ public class Task {
 
 
 
-	public int getUserid() {
-		return userid;
+
+
+
+
+	public String getEmail() {
+		return email;
 	}
 
 
 
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
@@ -119,9 +123,13 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [userid=" + userid + ", description=" + description + ", duedate=" + duedate + ", status=" + status
-				+ "]";
+		return "Task [idtask=" + idtask + ", email=" + email + ", description=" + description + ", duedate=" + duedate
+				+ ", status=" + status + "]";
 	}
+
+
+
+
 	
 	
 }

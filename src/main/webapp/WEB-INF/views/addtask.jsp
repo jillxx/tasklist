@@ -20,7 +20,7 @@
 		Description: <input type="text" name="description"><br>
 		Due Date: <input type="date" name="duedate">
 		<input type ="hidden" name="status" value = "false">
-		<input type="hidden" name="userid" value="${userid}" > <input
+		<input type="hidden" name="email" value="${useremail}" > <input
 				type="submit" value="Submit"><br>
 		</form>
 	</div>

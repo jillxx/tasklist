@@ -29,9 +29,9 @@ public class taskDao {
 		return namedQuery.getResultList();
 	}
 	
-	public List<Task> listTasks(int id) {
-//		System.out.println(id);
-		Query query = em.createQuery("SELECT t FROM Task t WHERE userid = "+ id);
+	public List<Task> listTasks(String email) {
+	//	System.out.println(email);
+		Query query = em.createQuery("SELECT t FROM Task t WHERE email = '"+ email+ "'");
 		
 		return query.getResultList();
 	}
