@@ -1,5 +1,6 @@
 package com.gc.tasklist.TaskList.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,6 +33,26 @@ public class taskDao {
 	public List<Task> listTasks(String email) {
 	//	System.out.println(email);
 		Query query = em.createQuery("SELECT t FROM Task t WHERE email = '"+ email+ "'");
+		
+		return query.getResultList();
+	}
+	
+	public List<Task> searchByD8(String email, Date duedate) {
+	//	System.out.println(email);
+		Query query = em.createQuery("SELECT t FROM Task t WHERE email = '"+ email+ "'" + "AND duedate = '" + duedate + "'");
+		
+		return query.getResultList();
+	}
+	public List<Task> searchByDescrip(String email, String description) {
+	//	System.out.println(email);
+		Query query = em.createQuery("SELECT t FROM Task t WHERE email = '"+ email+ "'" + "AND description CONTAINS '" + description + "'");
+		
+		return query.getResultList();
+	}
+	
+	public List<Task> searchByStatus(String email, boolean status) {
+	//	System.out.println(email);
+		Query query = em.createQuery("SELECT t FROM Task t WHERE email = '"+ email+ "'" + "AND status = '" + status + "'");
 		
 		return query.getResultList();
 	}
