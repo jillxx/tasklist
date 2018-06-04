@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gc.coffeeshop.entity.Items;
 import com.gc.tasklist.TaskList.dao.taskDao;
 import com.gc.tasklist.TaskList.dao.userDao;
 import com.gc.tasklist.TaskList.entity.Task;
@@ -50,8 +49,10 @@ public class HomeController {
 			List<Task> tasklist = taskDao.listTasks(email);
 			System.out.println("test for finding tasklist");
 			System.out.println(tasklist);//good
-
-			return new ModelAndView("task", "tasklist", tasklist);
+			
+			ModelAndView m = new ModelAndView("task", "tasklist", tasklist);
+			m.addObject("email",email);
+			return m;
 		} else {
 				System.out.println("not match");
 			return new ModelAndView("index");
@@ -60,7 +61,9 @@ public class HomeController {
 
 	@RequestMapping("/addtask")
 	public ModelAndView addfrom(@RequestParam("email")String email) {
-		return new ModelAndView("addtask","useremail",email);
+		ModelAndView m = new ModelAndView("addtask","useremail",email);
+		m.addObject("email",email);
+		return m;
 	}
 
 	@RequestMapping("/add")
@@ -69,9 +72,24 @@ public class HomeController {
 		Task task = new Task(email, description, duedate, status);
 		System.out.println(task);
 		taskDao.addTask(task);
-		return new ModelAndView("task", "tasklist",taskDao.listTasks(email));
+		ModelAndView m = new ModelAndView("task", "tasklist",taskDao.listTasks(email));
+		m.addObject("email",email);
+		//return new ModelAndView("task", "tasklist",taskDao.listTasks(email));
+		return m;
 	}
 	
+	@RequestMapping("/changestatus")
+	public ModelAndView changeStatus(@RequestParam("status") Task p) {
+		
+		//System.out.println("changestatus+++++++++++:" + status + "," + email);
+		
+		taskDao.update(p);
+		
+		ModelAndView m = new ModelAndView("task", "tasklist", p);
+		//m.addObject("email",email);
+		//return new ModelAndView("task", "tasklist",taskDao.listTasks(email));
+		return m;
+	}	
 	@RequestMapping("/delete")
 	public ModelAndView delete(@RequestParam("idtask") int idtask, @RequestParam("email")String email) {
 
@@ -79,9 +97,9 @@ public class HomeController {
 		return new ModelAndView("task", "tasklist", taskDao.listTasks(email));
 	}
 
-	@RequestMapping("/search")
-	public ModelAndView search(@RequestParam("words") String words, @RequestParam("email") String email) {
-		List<Task> searchTasks = taskDao.search(words);
-		return new ModelAndView("searchresults", "searchTasks", searchTasks);
-	}
+//	@RequestMapping("/search")
+//	public ModelAndView search(@RequestParam("words") String words, @RequestParam("email") String email) {
+//		List<Task> searchTasks = taskDao.searchByDescrip(words);
+//		return new ModelAndView("searchresults", "searchTasks", searchTasks);
+//	}
 }

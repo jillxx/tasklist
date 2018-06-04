@@ -69,15 +69,18 @@
 						<!-- 						<td> 2018-06-01	</td>  -->
 						<td><fmt:parseDate value="${task.duedate}" var="parsedDate"
 								pattern="yyyy-MM-dd" />${parsedDate}</td>
-						<td><input type="checkbox" name="${task.status}"></td>
+						<td><input type="checkbox" name="status" onclick="location.href='/changestatus?status=" + ${task}></td>
 						<td><a type="button" href="delete?idtask=${task.idtask}&email=${task.email}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		
 		</table>
-		<h3><a  href="addtask?email=${tasklist[0].email}">Add a task</a></h3>
-			
+		<form action ="addtask">
+		<input type = "hidden" name = "email" value ="${email}"></input>
+		
+		<button type="submit">Add a task</button>
+		</form>
 
 	</div>
 </body>
