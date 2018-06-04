@@ -19,6 +19,7 @@ public class HomeController {
 
 	@Autowired
 	private userDao userDao;
+	@Autowired
 	private taskDao taskDao;
 
 	@RequestMapping("/")
@@ -33,6 +34,7 @@ public class HomeController {
 
 	@RequestMapping("/register")
 	public ModelAndView register(@RequestParam("email") String email, @RequestParam("password") String password) {
+		System.out.println(email);
 		User user = new User(email, password);
 		userDao.addUser(user);
 		return new ModelAndView("redirect:/");
@@ -43,7 +45,10 @@ public class HomeController {
 
 		if (userDao.checkUser(email, password)) {
 				int id = userDao.findUser(email).getId();
+
 			List<Task> tasklist = taskDao.listTasks(id);
+			System.out.println("test for finding tasklist");
+			System.out.println(tasklist);//good
 
 			return new ModelAndView("task", "tasklist", tasklist);
 		} else {
@@ -52,24 +57,24 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping("/addItem")
-	public String addfrom() {
-		return "addItem";
+	@RequestMapping("/addtask")
+	public ModelAndView addfrom(@RequestParam("userid")int userid) {
+		return new ModelAndView("addtask","userid",userid);
 	}
 
 	@RequestMapping("/add")
-	public ModelAndView add(@RequestParam("userid")int userid,@RequestParam("description") String description, @RequestParam("duedate") Date duedate,
-			@RequestParam("status") boolean status) {
-
+	public ModelAndView add(@RequestParam("description") String description, @RequestParam("duedate") Date duedate,
+			@RequestParam("status") boolean status, @RequestParam("userid")int userid) {
 		Task task = new Task(userid, description, duedate, status);
+		System.out.println(task);
 		taskDao.addTask(task);
 		return new ModelAndView("task", "tasklist",taskDao.listTasks(userid));
 	}
 	
 	@RequestMapping("/delete")
-	public ModelAndView delete(@RequestParam("name") String name, @RequestParam("userid")int userid) {
+	public ModelAndView delete(@RequestParam("idtask") int idtask, @RequestParam("userid")int userid) {
 
-		taskDao.deleteByName(name);
+		taskDao.deleteById(idtask);
 		return new ModelAndView("task", "tasklist", taskDao.listTasks(userid));
 	}
 

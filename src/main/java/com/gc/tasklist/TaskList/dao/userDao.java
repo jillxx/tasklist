@@ -20,8 +20,7 @@ public class userDao {
 	}
 	
 	public User findUser(String uName) {
-		System.out.println(uName);
-		System.out.println(em.find(User.class, uName));
+
 		return em.find(User.class, uName);
 	}
 	

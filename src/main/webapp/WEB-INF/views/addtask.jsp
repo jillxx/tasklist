@@ -15,11 +15,14 @@
 <body>
 <div class="container">
 	<h2>Add a Task</h2>
-	<form action="addtask">
-		Description: <input type="text" name="description">
+	<form action="add">
+	
+		Description: <input type="text" name="description"><br>
 		Due Date: <input type="date" name="duedate">
-		<input type="submit" value="Submit"><br>
-	</form>
+		<input type ="hidden" name="status" value = "false">
+		<input type="hidden" name="userid" value="${userid}" > <input
+				type="submit" value="Submit"><br>
+		</form>
 	</div>
 </body>
 </html>

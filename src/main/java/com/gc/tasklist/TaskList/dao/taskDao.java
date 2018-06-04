@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gc.tasklist.TaskList.entity.Task;
 
+
 @Repository
 @Transactional
 public class taskDao {
@@ -19,8 +20,8 @@ public class taskDao {
 	@PersistenceContext
 	EntityManager em;
 	
-	public Task addTask(Task p) {
-		return em.merge(p);
+	public Task addTask(Task t) {
+		return em.merge(t);
 	}
 	
 	public List<Task> listTasks() {
@@ -28,16 +29,27 @@ public class taskDao {
 		return namedQuery.getResultList();
 	}
 	
-	public List<Task> listTasks(long id) {
-		Query namedQuery = em.createQuery("FROM tasklist WHERE id=" + id);
-		return namedQuery.getResultList();
+	public List<Task> listTasks(int id) {
+//		System.out.println(id);
+		Query query = em.createQuery("SELECT t FROM Task t WHERE userid = "+ id);
+		
+		return query.getResultList();
 	}
 	
 	public Task update(Task p) {
 		return em.merge(p);
 	}
 	
-	public void deleteByName(String p) {
-		em.remove(p);
+	public Task findById(int idtask) {
+		
+        //(pojo ,  matching varible)
+		return em.find(Task.class, idtask);
+}
+
+	
+	
+	public void deleteById(int idtask) {
+		
+		em.remove(findById(idtask));
 	}
 }
