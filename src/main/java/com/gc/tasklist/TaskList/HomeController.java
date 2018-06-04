@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gc.coffeeshop.entity.Items;
 import com.gc.tasklist.TaskList.dao.taskDao;
 import com.gc.tasklist.TaskList.dao.userDao;
 import com.gc.tasklist.TaskList.entity.Task;
@@ -78,4 +79,9 @@ public class HomeController {
 		return new ModelAndView("task", "tasklist", taskDao.listTasks(email));
 	}
 
+	@RequestMapping("/search")
+	public ModelAndView search(@RequestParam("words") String words, @RequestParam("email") String email) {
+		List<Task> searchTasks = taskDao.search(words);
+		return new ModelAndView("searchresults", "searchTasks", searchTasks);
+	}
 }

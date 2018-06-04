@@ -39,6 +39,16 @@
 
 </head>
 <body>
+<br>
+		<form action="/search">
+
+			<h4>
+				Please enter the product you want:<input type="text" name="name" />
+
+				<button type="submit" class="btn btn-primary">Search!</button>
+			</h4>
+		</form>
+		<br> <br>
 
 	<div class="container">				
 		<h1>Your Tasks</h1>
